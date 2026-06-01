@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: telegram-operator-platform
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: telegram-operator-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////data/operator_platform.db
+      - key: UPLOAD_DIR
+        value: /data/uploads
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPERATOR_LOGIN
+        value: operator
+      - key: OPERATOR_PASSWORD
+        sync: false
+      - key: AUTH_TOKEN
+        generateValue: true
